@@ -24,6 +24,12 @@
  */
 package tw.funnymph.commons.sort;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * This class provides a set of methods to sort elements in Java Collection with
  * sort descriptors.
@@ -34,4 +40,81 @@ package tw.funnymph.commons.sort;
  */
 public class SortUtils {
 
+	/**
+	 * Get the sorted items with the given sort descriptors. This method supports multiple sort
+	 * criteria that sorts the items by the first descriptor, if there are items whose order
+	 * can not be determined by the descriptor, the method uses the second descriptor in
+	 * the array and so on. Each descriptor can decide to sort items ascending or descending.
+	 * Note that the ordering of the items in the collection remains unchanged.
+	 * 
+	 * @param items the items to sort
+	 * @param descriptors the sort descriptors
+	 * @return the sort items
+	 * @throws IllegalArgumentException either {@code items} is null or {@code descriptors} is null
+	 */
+	@SuppressWarnings("unchecked")
+	public static <InputType> Collection<InputType> sort(Collection<InputType> items, final SortDescriptor<InputType>... descriptors) {
+		if (items == null || descriptors == null) {
+			throw new IllegalArgumentException();
+		}
+
+		List<InputType> result = new ArrayList<InputType>(items);
+		sort(result, descriptors);
+		return result;
+	}
+
+	/**
+	 * Sort the items with the given sort descriptors. This method supports multiple sort
+	 * criteria that sorts the items by the first descriptor, if there are items whose order
+	 * can not be determined by the descriptor, the method uses the second descriptor in
+	 * the array and so on. Each descriptor can decide to sort items ascending or descending.
+	 * 
+	 * @param items the items to sort
+	 * @param descriptors the sort descriptors
+	 * @throws IllegalArgumentException either {@code items} is null or {@code descriptors} is null
+	 */
+	@SuppressWarnings("unchecked")
+	public static <InputType> void sort(List<InputType> items, final SortDescriptor<InputType>... descriptors) {
+		if (items == null || descriptors == null) {
+			throw new IllegalArgumentException();
+		}
+
+		Collections.sort(items, new Comparator<InputType>() {
+
+			@Override
+			public int compare(InputType item1, InputType item2) {
+				return compare(item1, item2, 0);
+			}
+
+			/**
+			 * Compare the given two items with the descriptor specified by the index.
+			 * 
+			 * @param item1 the first item to compare
+			 * @param item2 the second item to compare
+			 * @param descriptorIndex the descriptor index in the array
+			 * @return the compare result
+			 */
+			@SuppressWarnings({ "rawtypes" })
+			private int compare(InputType item1, InputType item2, int descriptorIndex) {
+				SortDescriptor<InputType> descriptor = descriptors[descriptorIndex];
+				Comparable key1 = descriptor.transform(item1);
+				Comparable key2 = descriptor.transform(item2);
+				int result = descriptor.isAscending()? key1.compareTo(item2) : key2.compareTo(item1);
+				if (result == 0 && hasNextDescriptor(descriptorIndex)) {
+					return compare(item1, item2, descriptorIndex + 1);
+				}
+				return result;
+			}
+
+			/**
+			 * Check whether the given index has the next descriptor.
+			 * 
+			 * @param index the current descriptor index
+			 * @return true if has the next descriptor
+			 */
+			private boolean hasNextDescriptor(int index) {
+				return (index + 1) < descriptors.length;
+			}
+		});
+	}
 }
