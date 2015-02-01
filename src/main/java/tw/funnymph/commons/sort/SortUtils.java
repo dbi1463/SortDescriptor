@@ -49,11 +49,11 @@ public class SortUtils {
 	 * 
 	 * @param items the items to sort
 	 * @param descriptors the sort descriptors
+	 * @param <InputType> the type of the elements to be sorted
 	 * @return the sort items
 	 * @throws IllegalArgumentException either {@code items} is null or {@code descriptors} is null
 	 */
-	@SuppressWarnings("unchecked")
-	public static <InputType> Collection<InputType> sort(Collection<InputType> items, final SortDescriptor<InputType>... descriptors) {
+	public static <InputType> Collection<InputType> sort(Collection<InputType> items, final List<SortDescriptor<InputType>> descriptors) {
 		if (items == null || descriptors == null) {
 			throw new IllegalArgumentException();
 		}
@@ -71,10 +71,11 @@ public class SortUtils {
 	 * 
 	 * @param items the items to sort
 	 * @param descriptors the sort descriptors
+	 * @param <InputType> the type of the elements to be sorted
 	 * @throws IllegalArgumentException either {@code items} is null or {@code descriptors} is null
 	 */
 	@SuppressWarnings("unchecked")
-	public static <InputType> void sort(List<InputType> items, final SortDescriptor<InputType>... descriptors) {
+	public static <InputType> void sort(List<InputType> items, final List<SortDescriptor<InputType>> descriptors) {
 		if (items == null || descriptors == null) {
 			throw new IllegalArgumentException();
 		}
@@ -96,7 +97,7 @@ public class SortUtils {
 			 */
 			@SuppressWarnings({ "rawtypes" })
 			private int compare(InputType item1, InputType item2, int descriptorIndex) {
-				SortDescriptor<InputType> descriptor = descriptors[descriptorIndex];
+				SortDescriptor<InputType> descriptor = descriptors.get(descriptorIndex);
 				Comparable key1 = descriptor.transform(item1);
 				Comparable key2 = descriptor.transform(item2);
 				int result = descriptor.isAscending()? key1.compareTo(item2) : key2.compareTo(item1);
@@ -113,7 +114,7 @@ public class SortUtils {
 			 * @return true if has the next descriptor
 			 */
 			private boolean hasNextDescriptor(int index) {
-				return (index + 1) < descriptors.length;
+				return (index + 1) < descriptors.size();
 			}
 		});
 	}

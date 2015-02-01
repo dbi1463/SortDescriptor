@@ -40,9 +40,10 @@ import java.lang.reflect.Method;
  */
 public class PropertySortDescriptor<InputType> extends AbstractSortDescriptor<InputType> {
 
+	public static final String BOOLEAN_GETTER_PREFIX = "is";
+	public static final String DEFAULT_GETTER_PREFIX = "get";
+
 	private static final String GETTER_FORMAT = "%1s%2s";
-	private static final String BOOLEAN_GETTER_PREFIX = "is";
-	private static final String DEFAULT_GETTER_PREFIX = "get";
 
 	private String _prefix;
 	private String _propertyName;
