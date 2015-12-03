@@ -31,16 +31,16 @@ package tw.funnymph.commons.sort;
  * @version 1.0
  * @since 1.0
  */
-public class SimpleSortDescriptor<InputType> extends AbstractSortDescriptor<InputType> {
+public class SimpleSortDescriptor<InputType, T extends Comparable<T>> extends AbstractSortDescriptor<InputType> {
 
-	private Transformer<InputType, Comparable<?>> _transformer;
+	private Transformer<InputType, T> _transformer;
 
 	/**
 	 * Construct a <code>SimpleSortDescriptor</code> instance with the transformer.
 	 * 
 	 * @param transformer the transformer to wrap
 	 */
-	public SimpleSortDescriptor(Transformer<InputType, Comparable<?>> transformer) {
+	public SimpleSortDescriptor(Transformer<InputType, T> transformer) {
 		this(transformer, true);
 	}
 
@@ -51,13 +51,13 @@ public class SimpleSortDescriptor<InputType> extends AbstractSortDescriptor<Inpu
 	 * @param transformer the transformer to wrap
 	 * @param ascending the sorting ordering
 	 */
-	public SimpleSortDescriptor(Transformer<InputType, Comparable<?>> transformer, boolean ascending) {
+	public SimpleSortDescriptor(Transformer<InputType, T> transformer, boolean ascending) {
 		super(ascending);
 		_transformer = transformer;
 	}
 
 	@Override
-	public Comparable<?> transform(InputType input) {
+	public T transform(InputType input) {
 		return _transformer.transform(input);
 	}
 }

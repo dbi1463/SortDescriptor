@@ -47,6 +47,14 @@ public class Person {
 	private Gender _gender;
 	private Date _birthday;
 
+	/**
+	 * Construct a <code>Person</code> instance with the properties.
+	 * 
+	 * @param firstName the first name of the person
+	 * @param lastName the last name of the person
+	 * @param gender the gender of the person
+	 * @param birthday the birthday of the person
+	 */
 	public Person(String firstName, String lastName, Gender gender, Date birthday) {
 		_firstName = firstName;
 		_lastName = lastName;
@@ -54,22 +62,47 @@ public class Person {
 		_birthday = birthday;
 	}
 
+	/**
+	 * Get the first name of the person
+	 * 
+	 * @return the first name
+	 */
 	public String getFirstName() {
 		return _firstName;
 	}
 
+	/**
+	 * Get the last name of the person.
+	 * 
+	 * @return the last name
+	 */
 	public String getLastName() {
 		return _lastName;
 	}
 
+	/**
+	 * Get the full name of the person.
+	 * 
+	 * @return the full name
+	 */
 	public String getFullName() {
-		return _firstName + " " + _lastName;
+		return getFirstName() + " " + getLastName();
 	}
 
+	/**
+	 * Get the gender of the person.
+	 * 
+	 * @return the gender
+	 */
 	public Gender getGender() {
 		return _gender;
 	}
 
+	/**
+	 * Get the age of the person.
+	 * 
+	 * @return the age
+	 */
 	public int getAge() {
 		Calendar birthday = Calendar.getInstance();  
 		birthday.setTime(_birthday);  

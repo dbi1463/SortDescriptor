@@ -63,7 +63,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(Transformer<InputType, Comparable<?>> transformer) {
+	public static <InputType, T extends Comparable<T>> SortDescriptorsBuilder<InputType> of(Transformer<InputType, T> transformer) {
 		return of(transformer, true);
 	}
 
@@ -76,7 +76,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(Transformer<InputType, Comparable<?>> transformer, boolean ascending) {
+	public static <InputType, T extends Comparable<T>> SortDescriptorsBuilder<InputType> of(Transformer<InputType, T> transformer, boolean ascending) {
 		SortDescriptorsBuilder<InputType> builder = new SortDescriptorsBuilder<InputType>();
 		builder.add(transformer, ascending);
 		return builder;
@@ -167,7 +167,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param transformer the transformer to be the sort descriptor
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(Transformer<InputType, Comparable<?>> transformer) {
+	public <T extends Comparable<T>> SortDescriptorsBuilder<InputType> add(Transformer<InputType, T> transformer) {
 		return add(transformer, true);
 	}
 
@@ -178,8 +178,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param ascending to sort elements ascending or descending
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(Transformer<InputType, Comparable<?>> transformer, boolean ascending) {
-		_descriptors.add(new SimpleSortDescriptor<InputType>(transformer, ascending));
+	public <T extends Comparable<T>> SortDescriptorsBuilder<InputType> add(Transformer<InputType, T> transformer, boolean ascending) {
+		_descriptors.add(new SimpleSortDescriptor<InputType, T>(transformer, ascending));
 		return this;
 	}
 
@@ -243,16 +243,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param items the items to sort
 	 * @return the sorted items
 	 */
-	public Collection<InputType> sort(Collection<InputType> items) {
+	public List<InputType> sort(Collection<InputType> items) {
 		return SortUtils.sort(items, _descriptors);
-	}
-
-	/**
-	 * Sort the given elements with the sort descriptors organized by the builder.
-	 * 
-	 * @param items the items to sort
-	 */
-	public void sort(List<InputType> items) {
-		SortUtils.sort(items, _descriptors);
 	}
 }

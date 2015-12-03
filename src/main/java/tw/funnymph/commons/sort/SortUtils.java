@@ -53,7 +53,7 @@ public class SortUtils {
 	 * @return the sort items
 	 * @throws IllegalArgumentException either {@code items} is null or {@code descriptors} is null
 	 */
-	public static <InputType> Collection<InputType> sort(Collection<InputType> items, final List<SortDescriptor<InputType>> descriptors) {
+	public static <InputType> List<InputType> sort(Collection<InputType> items, final List<SortDescriptor<InputType>> descriptors) {
 		if (items == null || descriptors == null) {
 			throw new IllegalArgumentException();
 		}
@@ -100,7 +100,7 @@ public class SortUtils {
 				SortDescriptor<InputType> descriptor = descriptors.get(descriptorIndex);
 				Comparable key1 = descriptor.transform(item1);
 				Comparable key2 = descriptor.transform(item2);
-				int result = descriptor.isAscending()? key1.compareTo(item2) : key2.compareTo(item1);
+				int result = descriptor.isAscending()? key1.compareTo(key2) : key2.compareTo(key1);
 				if (result == 0 && hasNextDescriptor(descriptorIndex)) {
 					return compare(item1, item2, descriptorIndex + 1);
 				}
