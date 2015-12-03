@@ -58,6 +58,7 @@ public class SortExample {
 		// sort the persons by whether the person is adult or not, the gender, and the first name
 		List<Person> result = SortDescriptorsBuilder
 			.of(new AdultChecker(), true)
+//			.of((Person p) -> { return p.getAge() >= 18; }, true) // available on Java 8 only
 			.add("gender", false)
 			.add("firstName", true)
 			.sort(persons);
