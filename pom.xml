@@ -37,20 +37,6 @@
 					</links>
 				</configuration>
 			</plugin>
-		</plugins>
-	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.1</version>
-				<configuration>
-					<charset>UTF-8</charset>
-					<aggregate>true</aggregate>
-					<docencoding>UTF-8</docencoding>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -69,6 +55,20 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+					<charset>UTF-8</charset>
+					<aggregate>true</aggregate>
+					<docencoding>UTF-8</docencoding>
+				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>
