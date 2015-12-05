@@ -1,4 +1,4 @@
 language: java
 
 install: mvn install
-script: mvn test javadoc
+script: mvn test
