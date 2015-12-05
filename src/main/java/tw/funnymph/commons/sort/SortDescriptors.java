@@ -230,7 +230,8 @@ public class SortDescriptors<InputType> {
 	 * @return the builder to organize other sort descriptors
 	 */
 	public SortDescriptors<InputType> thenWith(String propertyName, String methodPrefix, boolean ascending) {
-		PropertySortDescriptor<InputType> descriptor = new PropertySortDescriptor<InputType>(propertyName, ascending);
+		PropertySortDescriptor<InputType> descriptor = new PropertySortDescriptor<InputType>(propertyName);
+		descriptor.setAscending(ascending);
 		descriptor.setGetterMethodPrefix(methodPrefix);
 		_descriptors.add(descriptor);
 		return this;

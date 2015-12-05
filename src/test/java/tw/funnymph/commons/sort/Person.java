@@ -46,6 +46,7 @@ public class Person {
 	private String _lastName;
 	private Gender _gender;
 	private Date _birthday;
+	private Address _homeAddress;
 
 	/**
 	 * Construct a <code>Person</code> instance with the properties.
@@ -99,6 +100,33 @@ public class Person {
 	}
 
 	/**
+	 * Check whether the person has a home address or not.
+	 * 
+	 * @return {@code true} if the person has a home address
+	 */
+	public boolean hasHomeAddress() {
+		return _homeAddress != null;
+	}
+
+	/**
+	 * Get the home address.
+	 * 
+	 * @return the home address
+	 */
+	public Address getHomeAddress() {
+		return _homeAddress;
+	}
+
+	/**
+	 * Set the home address.
+	 * 
+	 * @param address home address
+	 */
+	public void setHomeAddress(Address address) {
+		_homeAddress = address;
+	}
+
+	/**
 	 * Get the age of the person.
 	 * 
 	 * @return the age
@@ -116,5 +144,10 @@ public class Person {
 			age--;
 		}
 		return age;
+	}
+
+	@Override
+	public String toString() {
+		return getFullName();
 	}
 }

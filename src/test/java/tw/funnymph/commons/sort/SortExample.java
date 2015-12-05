@@ -58,7 +58,7 @@ public class SortExample {
 
 		// sort the persons by whether the person is adult or not, the gender, and the first name
 		List<Person> result = SortDescriptors
-			.startWith(new AdultChecker(), true)
+			.startWith(new AdultChecker())
 //			.of((Person p) -> { return p.getAge() >= 18; }, true) // available on Java 8 only
 			.thenWith("gender", false)
 			.thenWith("firstName")
@@ -89,31 +89,29 @@ public class SortExample {
 	public void testSort() {
 		List<Person> persons = new ArrayList<Person>();
 		// getBirthday(age, month, day)
-		persons.add(new Person("Joe", "Lai", Gender.Male, getBirthday(13, 1, 3)));
+		persons.add(new Person("Joe", "Lee", Gender.Male, getBirthday(13, 1, 3)));
 		persons.add(new Person("Jessica", "Lee", Gender.Female, getBirthday(13, 11, 23)));
 		persons.add(new Person("Mike", "Cheng", Gender.Male, getBirthday(18, 9, 3)));
 		persons.add(new Person("Richard", "Wang", Gender.Male, getBirthday(16, 7, 13)));
-		persons.add(new Person("Cathy", "Feng", Gender.Female, getBirthday(21, 5, 9)));
-		persons.add(new Person("Bill", "Lin", Gender.Male, getBirthday(26, 3, 22)));
+		Person cathyFeng = new Person("Cathy", "Feng", Gender.Female, getBirthday(21, 5, 9));
+		persons.add(cathyFeng);
+		cathyFeng.setHomeAddress(new Address("Taiwan", "New Taipei City", ""));
+		Person billLin = new Person("Bill", "Lin", Gender.Male, getBirthday(26, 3, 22));
+		billLin.setHomeAddress(new Address("Taiwan", "Taipei", ""));
+		persons.add(billLin);
 		persons.add(new Person("Zoe", "Kuan", Gender.Female, getBirthday(34, 4, 30)));
 
 		// sort the persons by whether the person is adult or not, the gender, and the first name
-		SortDescriptors
-			.startWith(new AdultChecker(), true)
-			.thenWith("gender", false)
-			.thenWith("firstName")
-			.sort(persons);
-
-		// The following are not adult
-		assertEquals("Jessica Lee", persons.get(0).getFullName());
-		assertEquals("Joe Lai", persons.get(1).getFullName());
-		assertEquals("Richard Wang", persons.get(2).getFullName());
-
-		// The following are adult
-		assertEquals("Cathy Feng", persons.get(3).getFullName());
-		assertEquals("Zoe Kuan", persons.get(4).getFullName());
-		assertEquals("Bill Lin", persons.get(5).getFullName());
-		assertEquals("Mike Cheng", persons.get(6).getFullName());
+		SortDescriptors<Person> descriptors = SortDescriptors.startWith("homeAddress", "get", false);
+		descriptors.thenWith("lastName").thenWith("age", "get", true);
+		descriptors.sort(persons);
+		assertEquals("Bill Lin", persons.get(0).getFullName());
+		assertEquals("Cathy Feng", persons.get(1).getFullName());
+		assertEquals("Mike Cheng", persons.get(2).getFullName());
+		assertEquals("Zoe Kuan", persons.get(3).getFullName());
+		assertEquals("Joe Lee", persons.get(4).getFullName());
+		assertEquals("Jessica Lee", persons.get(5).getFullName());
+		assertEquals("Richard Wang", persons.get(6).getFullName());
 	}
 
 	/**

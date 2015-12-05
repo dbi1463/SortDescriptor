@@ -100,16 +100,16 @@ public class SortUtils {
 				SortDescriptor<InputType> descriptor = descriptors.get(descriptorIndex);
 				Comparable key1 = descriptor.transform(item1);
 				Comparable key2 = descriptor.transform(item2);
-				if (key1 == null && key2 == null) {
-					return 0;
-				}
+				int result = 0;
 				if (key1 != null && key2 == null) {
-					return descriptor.isAscending()? -1 : 1;
-				}
-				if (key1 == null && key2 != null) {
 					return descriptor.isAscending()? 1 : -1;
 				}
-				int result = descriptor.isAscending()? key1.compareTo(key2) : key2.compareTo(key1);
+				if (key1 == null && key2 != null) {
+					return descriptor.isAscending()? -1 : 1;
+				}
+				if (key1 != null && key2 != null) {
+					result = descriptor.isAscending()? key1.compareTo(key2) : key2.compareTo(key1);
+				}
 				if (result == 0 && hasNextDescriptor(descriptorIndex)) {
 					return compare(item1, item2, descriptorIndex + 1);
 				}
