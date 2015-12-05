@@ -15,13 +15,13 @@ A NSSortDescriptor-like implementation on Java.
 =============
 The `SortDescriptorsBuilder` can be use to organize the sort conditions. Given a person object that has first name, last name, full name, age, and gender properties (see the Person.java in test code). For example, if we would like to sort persons first by whether the person is adult or not, than by the gender, and last by his/her first name. There is no need to write complicated comparator. With `SortDescriptorsBuilder`, the following code combines three sort descriptors together. The first sort descriptor wraps a transformer (`AdultChecker`) to sort transient property from a person object. The third statement adds a property sort descriptor by just simply declares the property name in the first parameter. The second parameter is used to control the ordering: ascending or descending.
 
-```
+```java
 // Sort the persons by whether the person is adult or not, the gender, and the first name
 List<Person> result = SortDescriptorsBuilder
-	.of(new AdultChecker(), true)
-	.add("gender", false)
-	.add("firstName", true)
-	.sort(persons);
+	.startWith(new AdultChecker(), true)
+	.thenWith("gender", false)
+	.thenWith("firstName", true)
+	.sortedList(persons);
 ```
 
 The `AdultChecker` is a very simple class that implements `Transformer` to return `true` for a person whose age is larger than `18`; otherwise return `false`.
@@ -59,10 +59,10 @@ Of course, with Java 8, the `AdultChecker` can be replaced with single-staement 
 
 ```java
 List<Person> result = SortDescriptorsBuilder
-	.of((Person p) -> { return p.getAge() >= 18; }, true)
-	.add("gender", false)
-	.add("firstName", true)
-	.sort(persons);
+	.startWith((Person p) -> { return p.getAge() >= 18; }, true)
+	.thenWith("gender", false)
+	.thenWith("firstName", true)
+	.sortedList(persons);
 ```
 
 Here is the complete example, that uses `SortDescriptorsBuilder` to ogranize three sort descriptors and then sorts 7 objects in expected order.
@@ -80,10 +80,10 @@ persons.add(new Person("Zoe", "Kuan", Gender.Female, getBirthday(34, 4, 30)));
 
 // Sort the persons by whether the person is adult or not, the gender, and the first name
 List<Person> result = SortDescriptorsBuilder
-	.of(new AdultChecker(), true)
-	.add("gender", false)
-	.add("firstName", true)
-	.sort(persons);
+	.startWith(new AdultChecker(), true)
+	.thenWith("gender", false)
+	.thenWith("firstName", true)
+	.sortedList(persons);
 
 // Assert the ordering
 // The following are not adult, female first and then male

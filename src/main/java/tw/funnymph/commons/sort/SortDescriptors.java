@@ -1,4 +1,4 @@
-/* SortDescriptorsBuilder.java created on Feb 1, 2015
+/* SortDescriptors.java created on Feb 1, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -37,7 +37,7 @@ import java.util.List;
  * @since 1.0
  * @param <InputType> the type of the elements to be sorted
  */
-public class SortDescriptorsBuilder<InputType> {
+public class SortDescriptors<InputType> {
 
 	private List<SortDescriptor<InputType>> _descriptors;
 
@@ -49,9 +49,9 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(SortDescriptor<InputType> descriptor) {
-		SortDescriptorsBuilder<InputType> builder = new SortDescriptorsBuilder<InputType>();
-		builder.add(descriptor);
+	public static <InputType> SortDescriptors<InputType> startWith(SortDescriptor<InputType> descriptor) {
+		SortDescriptors<InputType> builder = new SortDescriptors<InputType>();
+		builder.thenWith(descriptor);
 		return builder;
 	}
 
@@ -63,8 +63,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType, T extends Comparable<T>> SortDescriptorsBuilder<InputType> of(Transformer<InputType, T> transformer) {
-		return of(transformer, true);
+	public static <InputType, T extends Comparable<T>> SortDescriptors<InputType> startWith(Transformer<InputType, T> transformer) {
+		return startWith(transformer, true);
 	}
 
 	/**
@@ -76,9 +76,9 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType, T extends Comparable<T>> SortDescriptorsBuilder<InputType> of(Transformer<InputType, T> transformer, boolean ascending) {
-		SortDescriptorsBuilder<InputType> builder = new SortDescriptorsBuilder<InputType>();
-		builder.add(transformer, ascending);
+	public static <InputType, T extends Comparable<T>> SortDescriptors<InputType> startWith(Transformer<InputType, T> transformer, boolean ascending) {
+		SortDescriptors<InputType> builder = new SortDescriptors<InputType>();
+		builder.thenWith(transformer, ascending);
 		return builder;
 	}
 
@@ -91,8 +91,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(String propertyName) {
-		return of(propertyName, true);
+	public static <InputType> SortDescriptors<InputType> startWith(String propertyName) {
+		return startWith(propertyName, true);
 	}
 
 	/**
@@ -104,8 +104,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(String propertyName, boolean ascending) {
-		return of(propertyName, false, ascending);
+	public static <InputType> SortDescriptors<InputType> startWith(String propertyName, boolean ascending) {
+		return startWith(propertyName, false, ascending);
 	}
 
 	/**
@@ -119,9 +119,9 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(String propertyName, String methodPrefix, boolean ascending) {
-		SortDescriptorsBuilder<InputType> builder = new SortDescriptorsBuilder<InputType>();
-		builder.add(propertyName, methodPrefix, ascending);
+	public static <InputType> SortDescriptors<InputType> startWith(String propertyName, String methodPrefix, boolean ascending) {
+		SortDescriptors<InputType> builder = new SortDescriptors<InputType>();
+		builder.thenWith(propertyName, methodPrefix, ascending);
 		return builder;
 	}
 
@@ -137,16 +137,16 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param <InputType> the type of the elements to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
-	public static <InputType> SortDescriptorsBuilder<InputType> of(String propertyName, boolean isBooleanProperty, boolean ascending) {
-		SortDescriptorsBuilder<InputType> builder = new SortDescriptorsBuilder<InputType>();
-		builder.add(propertyName, isBooleanProperty, ascending);
+	public static <InputType> SortDescriptors<InputType> startWith(String propertyName, boolean isBooleanProperty, boolean ascending) {
+		SortDescriptors<InputType> builder = new SortDescriptors<InputType>();
+		builder.thenWith(propertyName, isBooleanProperty, ascending);
 		return builder;
 	}
 
 	/**
 	 * Construct a <code>SortDescriptorsBuilder</code> instance.
 	 */
-	public SortDescriptorsBuilder() {
+	private SortDescriptors() {
 		_descriptors = new ArrayList<SortDescriptor<InputType>>();
 	}
 
@@ -156,7 +156,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param descriptor the sort descriptor
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(SortDescriptor<InputType> descriptor) {
+	public SortDescriptors<InputType> thenWith(SortDescriptor<InputType> descriptor) {
 		_descriptors.add(descriptor);
 		return this;
 	}
@@ -167,8 +167,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param transformer the transformer to be the sort descriptor
 	 * @return the builder to organize other sort descriptors
 	 */
-	public <T extends Comparable<T>> SortDescriptorsBuilder<InputType> add(Transformer<InputType, T> transformer) {
-		return add(transformer, true);
+	public <T extends Comparable<T>> SortDescriptors<InputType> thenWith(Transformer<InputType, T> transformer) {
+		return thenWith(transformer, true);
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param ascending to sort elements ascending or descending
 	 * @return the builder to organize other sort descriptors
 	 */
-	public <T extends Comparable<T>> SortDescriptorsBuilder<InputType> add(Transformer<InputType, T> transformer, boolean ascending) {
+	public <T extends Comparable<T>> SortDescriptors<InputType> thenWith(Transformer<InputType, T> transformer, boolean ascending) {
 		_descriptors.add(new SimpleSortDescriptor<InputType, T>(transformer, ascending));
 		return this;
 	}
@@ -189,8 +189,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param propertyName the property name to sort
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(String propertyName) {
-		return add(propertyName, false, true);
+	public SortDescriptors<InputType> thenWith(String propertyName) {
+		return thenWith(propertyName, false, true);
 	}
 
 	/**
@@ -200,8 +200,8 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param ascending to sort elements ascending or descending
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(String propertyName, boolean ascending) {
-		return add(propertyName, false, ascending);
+	public SortDescriptors<InputType> thenWith(String propertyName, boolean ascending) {
+		return thenWith(propertyName, false, ascending);
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param ascending to sort elements ascending or descending
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(String propertyName, boolean isBooleanProperty, boolean ascending) {
+	public SortDescriptors<InputType> thenWith(String propertyName, boolean isBooleanProperty, boolean ascending) {
 		PropertySortDescriptor<InputType> descriptor = new PropertySortDescriptor<InputType>(propertyName, isBooleanProperty, ascending);
 		_descriptors.add(descriptor);
 		return this;
@@ -229,7 +229,7 @@ public class SortDescriptorsBuilder<InputType> {
 	 * @param ascending to sort elements ascending or descending
 	 * @return the builder to organize other sort descriptors
 	 */
-	public SortDescriptorsBuilder<InputType> add(String propertyName, String methodPrefix, boolean ascending) {
+	public SortDescriptors<InputType> thenWith(String propertyName, String methodPrefix, boolean ascending) {
 		PropertySortDescriptor<InputType> descriptor = new PropertySortDescriptor<InputType>(propertyName, ascending);
 		descriptor.setGetterMethodPrefix(methodPrefix);
 		_descriptors.add(descriptor);
@@ -238,12 +238,22 @@ public class SortDescriptorsBuilder<InputType> {
 
 	/**
 	 * Return a sorted elements from the given elements (remain unchanged) with the
-	 * sort descriptors organized by the builder.
+	 * sort descriptors.
 	 * 
 	 * @param items the items to sort
 	 * @return the sorted items
 	 */
-	public List<InputType> sort(Collection<InputType> items) {
-		return SortUtils.sort(items, _descriptors);
+	public List<InputType> sortedList(Collection<InputType> items) {
+		return SortUtils.sortedList(items, _descriptors);
+	}
+
+	/**
+	 * Sorted the given elements with the sort descriptors.
+	 * 
+	 * @param items the items to sort
+	 * @return the sorted items
+	 */
+	public void sort(List<InputType> items) {
+		SortUtils.sort(items, _descriptors);
 	}
 }

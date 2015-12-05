@@ -53,7 +53,7 @@ public class SortUtils {
 	 * @return the sort items
 	 * @throws IllegalArgumentException either {@code items} is null or {@code descriptors} is null
 	 */
-	public static <InputType> List<InputType> sort(Collection<InputType> items, final List<SortDescriptor<InputType>> descriptors) {
+	public static <InputType> List<InputType> sortedList(Collection<InputType> items, final List<SortDescriptor<InputType>> descriptors) {
 		if (items == null || descriptors == null) {
 			throw new IllegalArgumentException();
 		}
