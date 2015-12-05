@@ -2,6 +2,7 @@ SortDescriptor
 ================
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 ![CI Status](https://travis-ci.org/dbi1463/SortDescriptor.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/dbi1463/SortDescriptor/badge.svg?branch=master&service=github)](https://coveralls.io/github/dbi1463/SortDescriptor?branch=master)
 
 A NSSortDescriptor-like implementation on Java.
 
