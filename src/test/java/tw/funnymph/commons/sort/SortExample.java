@@ -61,7 +61,7 @@ public class SortExample {
 			.startWith(new AdultChecker(), true)
 //			.of((Person p) -> { return p.getAge() >= 18; }, true) // available on Java 8 only
 			.thenWith("gender", false)
-			.thenWith("firstName", true)
+			.thenWith("firstName")
 			.sortedList(persons);
 
 		// The following are not adult

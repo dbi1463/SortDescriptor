@@ -13,7 +13,7 @@ A NSSortDescriptor-like implementation on Java.
 * Object's persistent properties and transient properties can be used together as the sort conditions
 
 ## How to use
-The `SortDescriptors` can be use to organize the sort conditions. Given a person object that has first name, last name, full name, age, and gender properties (see the Person.java in test code). For example, if we would like to sort persons first by whether the person is adult or not, than by the gender, and last by his/her first name. There is no need to write complicated comparator. With `SortDescriptors`, the following code combines three sort descriptors together. The first sort descriptor wraps a transformer (`AdultChecker`) to sort transient property from a person object. The third statement adds a property sort descriptor by just simply declares the property name in the first parameter. The second parameter is used to control the ordering: ascending or descending.
+The `SortDescriptors` can be use to organize the sort conditions. Given a person object that has first name, last name, full name, age, and gender properties (see the Person.java in test code). For example, if we would like to sort persons first by whether the person is adult or not, than by the gender, and last by his/her first name. There is no need to write complicated comparator. With `SortDescriptors`, the following code combines three sort descriptors together. The first sort descriptor wraps a transformer (`AdultChecker`) to sort transient property from a person object. The third statement adds a property sort descriptor by just simply declares the property name in the first parameter. The second parameter is used to control the ordering: `true` for ascending or `false` for descending (default is `true` if the parameter is not provided).
 
 ```java
 // Sort the persons by whether the person is adult or not, the gender, and the first name
@@ -83,7 +83,7 @@ persons.add(new Person("Zoe", "Kuan", Gender.Female, getBirthday(34, 4, 30)));
 List<Person> result = SortDescriptors
 	.startWith(new AdultChecker(), true)
 	.thenWith("gender", false)
-	.thenWith("firstName", true)
+	.thenWith("firstName")
 	.sortedList(persons);
 
 // Assert the ordering

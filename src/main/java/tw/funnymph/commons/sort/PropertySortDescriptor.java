@@ -96,6 +96,15 @@ public class PropertySortDescriptor<InputType> extends AbstractSortDescriptor<In
 		_prefix = prefix;
 	}
 
+	/**
+	 * Get the name of the property that is used to sort.
+	 * 
+	 * @return the property name
+	 */
+	public String getPropertyName() {
+		return _propertyName;
+	}
+
 	@Override
 	public Comparable<?> transform(InputType input) {
 		Class<?> clazz = input.getClass();

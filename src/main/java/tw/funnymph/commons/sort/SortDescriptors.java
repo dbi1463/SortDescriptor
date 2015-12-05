@@ -256,4 +256,12 @@ public class SortDescriptors<InputType> {
 	public void sort(List<InputType> items) {
 		SortUtils.sort(items, _descriptors);
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	List<SortDescriptor<InputType>> getDescriptors() {
+		return _descriptors;
+	}
 }
