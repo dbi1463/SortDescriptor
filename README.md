@@ -70,6 +70,7 @@ Here is the complete example, that uses `SortDescriptorsBuilder` to ogranize thr
 ```java
 // Given a lot of persons
 List<Person> persons = new ArrayList<Person>();
+// getBirthday(age, month, day)
 persons.add(new Person("Joe", "Lai", Gender.Male, getBirthday(13, 1, 3)));
 persons.add(new Person("Jessica", "Lee", Gender.Female, getBirthday(13, 11, 23)));
 persons.add(new Person("Mike", "Cheng", Gender.Male, getBirthday(18, 9, 3)));

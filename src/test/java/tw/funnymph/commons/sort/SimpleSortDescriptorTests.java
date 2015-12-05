@@ -1,4 +1,4 @@
-/* AbstractSortDescriptor.java created on Jan 21, 2015
+/* SimpleSortDescriptorTests.java created on Dec 5, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -24,38 +24,26 @@
  */
 package tw.funnymph.commons.sort;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import tw.funnymph.commons.sort.Person.Gender;
+
 /**
- * This abstract class provides the common implementation of {@link SortDescriptor}.
+ * This class tests the functionalities of {@link SimpleSortDescriptor}.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-public abstract class AbstractSortDescriptor<InputType> implements SortDescriptor<InputType> {
+public class SimpleSortDescriptorTests {
 
-	private boolean _ascending;
-
-	/**
-	 * Constructs a <code>AbstractSortDescriptor</code> instance with the given
-	 * ascending setting.
-	 * 
-	 * @param ascending the ascending setting
-	 */
-	protected AbstractSortDescriptor(boolean ascending) {
-		setAscending(ascending);
-	}
-
-	@Override
-	public boolean isAscending() {
-		return _ascending;
-	}
-
-	/**
-	 * Sets the order to sort elements.
-	 * 
-	 * @param ascending true to sort elements ascending
-	 */
-	public void setAscending(boolean ascending) {
-		_ascending = ascending;
+	@Test
+	public void testTransform() {
+		SimpleSortDescriptor<Person, Boolean> testee = new SimpleSortDescriptor<Person, Boolean>(new AdultChecker());
+		assertTrue(testee.isAscending());
+		assertTrue(testee.transform(new Person("Ada", "Liao", Gender.Female, SortExample.getBirthday(33, 2, 15))));
+		assertFalse(testee.transform(new Person("Mike", "Liao", Gender.Male, SortExample.getBirthday(13, 2, 15))));
 	}
 }

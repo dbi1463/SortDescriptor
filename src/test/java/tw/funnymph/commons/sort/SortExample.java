@@ -47,6 +47,7 @@ public class SortExample {
 	@Test
 	public void testExample() {
 		List<Person> persons = new ArrayList<Person>();
+		// getBirthday(age, month, day)
 		persons.add(new Person("Joe", "Lai", Gender.Male, getBirthday(13, 1, 3)));
 		persons.add(new Person("Jessica", "Lee", Gender.Female, getBirthday(13, 11, 23)));
 		persons.add(new Person("Mike", "Cheng", Gender.Male, getBirthday(18, 9, 3)));
@@ -83,7 +84,7 @@ public class SortExample {
 	 * @param day the day of month
 	 * @return the dirthday
 	 */
-	private static Date getBirthday(int age, int month, int day) {
+	public static Date getBirthday(int age, int month, int day) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR) - age, month - 1, day);
 		return calendar.getTime();
