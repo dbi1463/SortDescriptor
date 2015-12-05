@@ -2,7 +2,8 @@ language: java
 
 before_install:
   - pip install --user codecov
-install: mvn install
-script: mvn test package
+script:
+  - mvn test
+  - mvn package
 after_success:
   - codecov
