@@ -90,9 +90,7 @@ public class SortExample {
 		List<Person> persons = new ArrayList<Person>();
 		// getBirthday(age, month, day)
 		persons.add(new Person("Joe", "Lee", Gender.Male, getBirthday(13, 1, 3)));
-		persons.add(new Person("Jessica", "Lee", Gender.Female, getBirthday(13, 11, 23)));
 		persons.add(new Person("Mike", "Cheng", Gender.Male, getBirthday(18, 9, 3)));
-		persons.add(new Person("Richard", "Wang", Gender.Male, getBirthday(16, 7, 13)));
 		Person cathyFeng = new Person("Cathy", "Feng", Gender.Female, getBirthday(21, 5, 9));
 		persons.add(cathyFeng);
 		cathyFeng.setHomeAddress(new Address("Taiwan", "New Taipei City", ""));
@@ -100,6 +98,8 @@ public class SortExample {
 		billLin.setHomeAddress(new Address("Taiwan", "Taipei", ""));
 		persons.add(billLin);
 		persons.add(new Person("Zoe", "Kuan", Gender.Female, getBirthday(34, 4, 30)));
+		persons.add(new Person("Jessica", "Lee", Gender.Female, getBirthday(13, 11, 23)));
+		persons.add(new Person("Richard", "Wang", Gender.Male, getBirthday(16, 7, 13)));
 
 		// sort the persons by whether the person is adult or not, the gender, and the first name
 		SortDescriptors<Person> descriptors = SortDescriptors.startWith("homeAddress", "get", false);
@@ -112,6 +112,35 @@ public class SortExample {
 		assertEquals("Joe Lee", persons.get(4).getFullName());
 		assertEquals("Jessica Lee", persons.get(5).getFullName());
 		assertEquals("Richard Wang", persons.get(6).getFullName());
+	}
+
+	@Test
+	public void testSortAscending() {
+		List<Person> persons = new ArrayList<Person>();
+		// getBirthday(age, month, day)
+		persons.add(new Person("Joe", "Lee", Gender.Male, getBirthday(13, 1, 3)));
+		persons.add(new Person("Mike", "Cheng", Gender.Male, getBirthday(18, 9, 3)));
+		Person cathyFeng = new Person("Cathy", "Feng", Gender.Female, getBirthday(21, 5, 9));
+		persons.add(cathyFeng);
+		cathyFeng.setHomeAddress(new Address("Taiwan", "New Taipei City", ""));
+		Person billLin = new Person("Bill", "Lin", Gender.Male, getBirthday(26, 3, 22));
+		billLin.setHomeAddress(new Address("Taiwan", "Taipei", ""));
+		persons.add(billLin);
+		persons.add(new Person("Zoe", "Kuan", Gender.Female, getBirthday(34, 4, 30)));
+		persons.add(new Person("Jessica", "Lee", Gender.Female, getBirthday(13, 11, 23)));
+		persons.add(new Person("Richard", "Wang", Gender.Male, getBirthday(16, 7, 13)));
+
+		// sort the persons by whether the person is adult or not, the gender, and the first name
+		SortDescriptors<Person> descriptors = SortDescriptors.startWith("homeAddress", "get", true);
+		descriptors.thenWith("lastName").thenWith("age", "get", true);
+		descriptors.sort(persons);
+		assertEquals("Mike Cheng", persons.get(0).getFullName());
+		assertEquals("Zoe Kuan", persons.get(1).getFullName());
+		assertEquals("Joe Lee", persons.get(2).getFullName());
+		assertEquals("Jessica Lee", persons.get(3).getFullName());
+		assertEquals("Richard Wang", persons.get(4).getFullName());
+		assertEquals("Cathy Feng", persons.get(5).getFullName());
+		assertEquals("Bill Lin", persons.get(6).getFullName());
 	}
 
 	/**

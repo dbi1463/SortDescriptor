@@ -61,6 +61,7 @@ public class SortDescriptors<InputType> {
 	 * 
 	 * @param transformer the transformer to be the first sort descriptor
 	 * @param <InputType> the type of the elements to be sorted
+	 * @param <T> the type of the input's property to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
 	public static <InputType, T extends Comparable<T>> SortDescriptors<InputType> startWith(Transformer<InputType, T> transformer) {
@@ -74,6 +75,7 @@ public class SortDescriptors<InputType> {
 	 * @param transformer the transformer to be the first sort descriptor
 	 * @param ascending to sort elements ascending or descending
 	 * @param <InputType> the type of the elements to be sorted
+	 * @param <T> the type of the input's property to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
 	public static <InputType, T extends Comparable<T>> SortDescriptors<InputType> startWith(Transformer<InputType, T> transformer, boolean ascending) {
@@ -165,6 +167,7 @@ public class SortDescriptors<InputType> {
 	 * Wrap the given transformer as a sort descriptor to sort elements <em>ascending</em>.
 	 * 
 	 * @param transformer the transformer to be the sort descriptor
+	 * @param <T> the type of the input's property to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
 	public <T extends Comparable<T>> SortDescriptors<InputType> thenWith(Transformer<InputType, T> transformer) {
@@ -176,6 +179,7 @@ public class SortDescriptors<InputType> {
 	 * 
 	 * @param transformer the transformer to be the sort descriptor
 	 * @param ascending to sort elements ascending or descending
+	 * @param <T> the type of the input's property to be sorted
 	 * @return the builder to organize other sort descriptors
 	 */
 	public <T extends Comparable<T>> SortDescriptors<InputType> thenWith(Transformer<InputType, T> transformer, boolean ascending) {
@@ -252,7 +256,6 @@ public class SortDescriptors<InputType> {
 	 * Sorted the given elements with the sort descriptors.
 	 * 
 	 * @param items the items to sort
-	 * @return the sorted items
 	 */
 	public void sort(List<InputType> items) {
 		SortUtils.sort(items, _descriptors);
