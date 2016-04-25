@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 import java.lang.reflect.Method;
 

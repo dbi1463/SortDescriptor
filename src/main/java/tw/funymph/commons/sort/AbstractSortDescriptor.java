@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 /**
  * This abstract class provides the common implementation of {@link SortDescriptor}.

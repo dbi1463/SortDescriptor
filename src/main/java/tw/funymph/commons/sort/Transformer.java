@@ -1,4 +1,4 @@
-/* SortDescriptor.java created on Jan 21, 2015
+/* Transformer.java created on Jan 21, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -22,22 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 /**
- * This interface extends {@link Transformer} to provide additional information
- * about how to sort elements.
+ * This interface defines the method to transform the input instance to the instance
+ * of another type.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-public interface SortDescriptor<InputType> extends Transformer<InputType, Comparable<?>> {
+public interface Transformer<InputType, OutputType> {
 
 	/**
-	 * Gets whether to sort elements ascending or descending.
+	 * Transforms the given input instance to the target output type.
 	 * 
-	 * @return true to sort elements ascending
+	 * @param input the instance to be transform
+	 * @return the target typed instance
 	 */
-	public boolean isAscending();
+	public OutputType transform(InputType input);
 }

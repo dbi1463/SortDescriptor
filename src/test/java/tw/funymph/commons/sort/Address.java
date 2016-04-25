@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 /**
  * This class is a data class for recording an address.

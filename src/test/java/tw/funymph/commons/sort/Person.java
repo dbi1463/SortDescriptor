@@ -22,14 +22,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 import java.util.Calendar;
 import java.util.Date;
 
 /**
  * This class represents a person with the properties to test the
- * classes in {@link tw.funnymph.commons.sort} package.
+ * classes in {@link tw.funymph.commons.sort} package.
  * 
  * @author Pin-Ying Tu
  * @version 1.0

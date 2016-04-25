@@ -22,13 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import tw.funymph.commons.sort.SortDescriptor;
+import tw.funymph.commons.sort.SortUtils;
 
 /**
  * This class tests the functionalities of {@link SortUtils}.

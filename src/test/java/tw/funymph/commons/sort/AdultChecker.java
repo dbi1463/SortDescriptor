@@ -1,4 +1,4 @@
-/* PropertySortDescriptorTests.java created on Dec 5, 2015.
+/* AdultChecker.java created on Feb 1, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -22,45 +22,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import tw.funnymph.commons.sort.Person.Gender;
+import tw.funymph.commons.sort.Transformer;
 
 /**
- * This class tests the functionalities of {@link PropertySortDescriptor}.
+ * This class check whether the given person is an adult or not.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-public class PropertySortDescriptorTests {
+public class AdultChecker implements Transformer<Person, Boolean> {
 
-	@Test
-	public void testPropertySortDescriptor() {
-		PropertySortDescriptor<Person> testee = new PropertySortDescriptor<Person>("lastName");
-		Person person = new Person("Cathy", "Tu", Gender.Female, SortExample.getBirthday(30, 2, 2));
-		assertTrue(testee.isAscending());
-		assertEquals("Tu", testee.transform(person));
+	public static final int DEFAULT_ADULT_AGE = 18;
+
+	private int _adultAge;
+
+	/**
+	 * Construct <code>AdultTransformer</code> instance.
+	 */
+	public AdultChecker() {
+		this(DEFAULT_ADULT_AGE);
 	}
 
-	@Test
-	public void testPropertySortDescriptorStringBooleanBoolean() {
-		PropertySortDescriptor<Person> testee = new PropertySortDescriptor<Person>("adult", true);
-		Person person = new Person("Cathy", "Tu", Gender.Female, SortExample.getBirthday(30, 2, 2));
-		assertTrue(testee.isAscending());
-		assertNull(testee.transform(person));
+	/**
+	 * Construct <code>AdultTransformer</code> instance with the minimum
+	 * age to become an adult.
+	 */
+	public AdultChecker(int age) {
+		_adultAge = age;
+	}
 
-		testee = new PropertySortDescriptor<Person>("firstName");
-		assertEquals("Cathy", testee.transform(person));
-
-		testee.setGetterMethodPrefix(null);
-		assertNull(testee.transform(person));
-
-		testee.setGetterMethodPrefix("");
-		assertNull(testee.transform(person));
+	@Override
+	public Boolean transform(Person input) {
+		return Boolean.valueOf(input.getAge() >= _adultAge);
 	}
 }

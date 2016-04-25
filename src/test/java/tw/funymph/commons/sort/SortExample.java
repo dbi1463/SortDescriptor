@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +33,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import tw.funnymph.commons.sort.Person.Gender;
+import tw.funymph.commons.sort.SortDescriptors;
+import tw.funymph.commons.sort.Person.Gender;
 
 /**
  * This test case provides a demonstration of the usage of sort descriptor.

@@ -1,4 +1,4 @@
-/* SimpleSortDescriptorTests.java created on Dec 5, 2015
+/* SortDescriptorsTests.java created on Dec 5, 2015.
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -22,28 +22,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
+package tw.funymph.commons.sort;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tw.funnymph.commons.sort.Person.Gender;
+import tw.funymph.commons.sort.PropertySortDescriptor;
+import tw.funymph.commons.sort.SimpleSortDescriptor;
+import tw.funymph.commons.sort.SortDescriptors;
+import tw.funymph.commons.sort.Transformer;
 
 /**
- * This class tests the functionalities of {@link SimpleSortDescriptor}.
+ * This class tests the functionalities of {@link SortDescriptors}.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-public class SimpleSortDescriptorTests {
+public class SortDescriptorsTests {
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test
-	public void testTransform() {
-		SimpleSortDescriptor<Person, Boolean> testee = new SimpleSortDescriptor<Person, Boolean>(new AdultChecker());
-		assertTrue(testee.isAscending());
-		assertTrue(testee.transform(new Person("Ada", "Liao", Gender.Female, SortExample.getBirthday(33, 2, 15))));
-		assertFalse(testee.transform(new Person("Mike", "Liao", Gender.Male, SortExample.getBirthday(13, 2, 15))));
+	public void testBuildDescriptors() {
+		SortDescriptors<Person> testee = SortDescriptors
+			.startWith("lastName")
+			.thenWith((Transformer)new AdultChecker());
+
+		assertEquals(2, testee.getDescriptors().size());
+		assertEquals(PropertySortDescriptor.class, testee.getDescriptors().get(0).getClass());
+		assertEquals("lastName", ((PropertySortDescriptor<Person>)testee.getDescriptors().get(0)).getPropertyName());
+		assertEquals(SimpleSortDescriptor.class, testee.getDescriptors().get(1).getClass());
+
+		testee = SortDescriptors.startWith(new PropertySortDescriptor<Person>("firstName"))
+			.thenWith(new PropertySortDescriptor<Person>("fullName"));
+		assertEquals(2, testee.getDescriptors().size());
+		assertEquals(PropertySortDescriptor.class, testee.getDescriptors().get(0).getClass());
+		assertEquals(PropertySortDescriptor.class, testee.getDescriptors().get(1).getClass());
 	}
 }

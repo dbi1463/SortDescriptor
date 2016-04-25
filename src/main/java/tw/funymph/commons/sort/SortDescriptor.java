@@ -1,4 +1,4 @@
-/* SortDescriptorsTests.java created on Dec 5, 2015.
+/* SortDescriptor.java created on Jan 21, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -22,37 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
-
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+package tw.funymph.commons.sort;
 
 /**
- * This class tests the functionalities of {@link SortDescriptors}.
+ * This interface extends {@link Transformer} to provide additional information
+ * about how to sort elements.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-public class SortDescriptorsTests {
+public interface SortDescriptor<InputType> extends Transformer<InputType, Comparable<?>> {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Test
-	public void testBuildDescriptors() {
-		SortDescriptors<Person> testee = SortDescriptors
-			.startWith("lastName")
-			.thenWith((Transformer)new AdultChecker());
-
-		assertEquals(2, testee.getDescriptors().size());
-		assertEquals(PropertySortDescriptor.class, testee.getDescriptors().get(0).getClass());
-		assertEquals("lastName", ((PropertySortDescriptor<Person>)testee.getDescriptors().get(0)).getPropertyName());
-		assertEquals(SimpleSortDescriptor.class, testee.getDescriptors().get(1).getClass());
-
-		testee = SortDescriptors.startWith(new PropertySortDescriptor<Person>("firstName"))
-			.thenWith(new PropertySortDescriptor<Person>("fullName"));
-		assertEquals(2, testee.getDescriptors().size());
-		assertEquals(PropertySortDescriptor.class, testee.getDescriptors().get(0).getClass());
-		assertEquals(PropertySortDescriptor.class, testee.getDescriptors().get(1).getClass());
-	}
+	/**
+	 * Gets whether to sort elements ascending or descending.
+	 * 
+	 * @return true to sort elements ascending
+	 */
+	public boolean isAscending();
 }

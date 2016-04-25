@@ -1,4 +1,4 @@
-/* SimpleSortDescriptor.java created on Jan 26, 2015
+/* package-info.java created on Jan 21, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -22,42 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tw.funnymph.commons.sort;
 
 /**
- * This class simply wraps a {@link Transformer} instance as a sort descriptor.
+ * This package contains the interfaces and classes for multi-sorting.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-public class SimpleSortDescriptor<InputType, T extends Comparable<T>> extends AbstractSortDescriptor<InputType> {
-
-	private Transformer<InputType, T> _transformer;
-
-	/**
-	 * Construct a <code>SimpleSortDescriptor</code> instance with the transformer.
-	 * 
-	 * @param transformer the transformer to wrap
-	 */
-	public SimpleSortDescriptor(Transformer<InputType, T> transformer) {
-		this(transformer, true);
-	}
-
-	/**
-	 * Construct a <code>SimpleSortDescriptor</code> instance with the transformer
-	 * and sorting ordering.
-	 * 
-	 * @param transformer the transformer to wrap
-	 * @param ascending the sorting ordering
-	 */
-	public SimpleSortDescriptor(Transformer<InputType, T> transformer, boolean ascending) {
-		super(ascending);
-		_transformer = transformer;
-	}
-
-	@Override
-	public T transform(InputType input) {
-		return _transformer.transform(input);
-	}
-}
+package tw.funymph.commons.sort;

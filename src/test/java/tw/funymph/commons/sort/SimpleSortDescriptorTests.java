@@ -1,4 +1,4 @@
-/* package-info.java created on Jan 21, 2015
+/* SimpleSortDescriptorTests.java created on Dec 5, 2015
  *
  * Copyright (c) <2015> Pin-Ying Tu <dbi1463@gmail.com>
  * 
@@ -22,12 +22,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package tw.funymph.commons.sort;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import tw.funymph.commons.sort.SimpleSortDescriptor;
+import tw.funymph.commons.sort.Person.Gender;
 
 /**
- * This package contains the interfaces and classes for multi-sorting.
+ * This class tests the functionalities of {@link SimpleSortDescriptor}.
  * 
  * @author Pin-Ying Tu
  * @version 1.0
  * @since 1.0
  */
-package tw.funnymph.commons.sort;
+public class SimpleSortDescriptorTests {
+
+	@Test
+	public void testTransform() {
+		SimpleSortDescriptor<Person, Boolean> testee = new SimpleSortDescriptor<Person, Boolean>(new AdultChecker());
+		assertTrue(testee.isAscending());
+		assertTrue(testee.transform(new Person("Ada", "Liao", Gender.Female, SortExample.getBirthday(33, 2, 15))));
+		assertFalse(testee.transform(new Person("Mike", "Liao", Gender.Male, SortExample.getBirthday(13, 2, 15))));
+	}
+}

@@ -22,7 +22,6 @@ deploy:
   api_key:
     - secure: UTGuUnbATvWnMDXpDXd9PCw2fn5LauJrebpPhTQ7lb/F1UD3h0E+9K7qJayUETBdovaKpUL9UtpJ/KHcXeWR490qM+OWCyYGyKHRNhTb8ssSyfwTOQvbfJOHGzKeOrIERtsG0JqI3YZWyJyycUF+azsvPwDJ1hA0b74nD798KRVkZCuZ28zv8mOL5o/JWhDQ4FS39F9CGbnbco9WtHUhLmp9PzchXewoEF+1XuXwtASpP4FPPm2Fu+scFzrFjvRePhg//pu4qGAFghHTFMm1YC45u+jc/tRfL2Uv+BAPeRUIk12f+gnEfybWdTs7Z20MbOy0m9/JabdL61AZ45sfWDFYe26D4RChSl8TeW1ZFpCvQW4sKmjdhWPwUbr67ycoa8d8/obDFt9wDFtav1FEG/9NhOzV6qZLJOHNq9OdZodkIkNp5axcrv8IJvUeBAEGkm6I4+T+Zw3xjdiORsYKxPl7FeRZ2fqL3CfuPqFdoIBJzXO9m5gZemubeAFcwMrnRZy+vCiscQiqrwUy8X47QhADnYzZd6VvU8CJwRoi+7JvdM1c8fljrfbANxXqDKTBzTOhPtEgWQ8hZ7mr20mGfcX6D28qdIhhagd+ZV+L1CTNOfXfWy5a8EDqsnJE0BE/mxW9wjx7jLIn/l+IG/MvZO9OL4uLUTLIIfbLFa3ThHM=
   file:
-    - "$TRAVIS_BUILD_DIR/target/sort-descriptor-$TRAVIS_TAG-sources.jar"
     - "$TRAVIS_BUILD_DIR/target/sort-descriptor-$TRAVIS_TAG.jar"
   skip_cleanup: true
   on:
