@@ -149,10 +149,17 @@ public class SortExample {
 	 * @param age the expected age
 	 * @param month the month; starting from 1 (January) to 12 (December)
 	 * @param day the day of month
-	 * @return the dirthday
+	 * @return the birthday
 	 */
 	public static Date getBirthday(int age, int month, int day) {
 		Calendar calendar = Calendar.getInstance();
+		if ((calendar.get(Calendar.MONTH) + 1) < month) {
+			age++;  
+		}
+		else if ((calendar.get(Calendar.MONTH) + 1) == month &&
+				 calendar.get(Calendar.DAY_OF_MONTH) < day) {
+			age++;
+		}
 		calendar.set(calendar.get(Calendar.YEAR) - age, month - 1, day);
 		return calendar.getTime();
 	}

@@ -148,6 +148,6 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return getFullName();
+		return String.format("%1$s, %2$s, %3$d", getFullName(), getGender().toString(), getAge());
 	}
 }
