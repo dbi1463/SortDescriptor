@@ -9,6 +9,10 @@
 			<username>${bintray-user}</username>
 			<password>${bintray-password}</password>
 		</server>
+		<server>
+			<id>github</id>
+			<password>${github-token}</password>
+		</server>
 	</servers>
 	<profiles>
 		<profile>

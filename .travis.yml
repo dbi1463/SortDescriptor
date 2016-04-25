@@ -6,7 +6,13 @@ cache:
 
 before_install:
   - pip install --user codecov
+
 script:
   - mvn package
+
 after_success:
   - codecov
+
+branches:
+except:
+  - gh-pages
