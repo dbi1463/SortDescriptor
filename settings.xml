@@ -6,12 +6,12 @@
 	<servers>
 		<server>
 			<id>bintray-dbi1463-maven</id>
-			<username>${env.bintray-user}</username>
-			<password>${env.bintray-password}</password>
+			<username>${env.BINTRAY_USER}</username>
+			<password>${env.BINTRAY_API_KEY}</password>
 		</server>
 		<server>
 			<id>github</id>
-			<password>${env.github-token}</password>
+			<password>${env.GITHUB_API_KEY}</password>
 		</server>
 	</servers>
 	<profiles>
