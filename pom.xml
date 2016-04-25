@@ -157,10 +157,11 @@
 		<url>https://github.com/dbi1463/SortDescriptor/issues</url>
 	</issueManagement>
 	<distributionManagement>
-		<site>
-			<id>sort-descriptor.git.server</id>
-			<url>scm:git:https://github.com/dbi1463/SortDescriptor.git</url>
-		</site>
+    	<repository>
+        	<id>bintray-dbi1463-maven</id>
+        	<name>dbi1463-maven</name>
+        	<url>https://api.bintray.com/maven/dbi1463/maven/SortDescriptor/;publish=1</url>
+    	</repository>
 	</distributionManagement>
 	<developers>
 		<developer>
@@ -168,33 +169,4 @@
 			<email>dbi1463@gmail.com</email>
 		</developer>
 	</developers>
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
