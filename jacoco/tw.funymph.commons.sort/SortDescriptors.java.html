@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SortDescriptors.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SortDescriptor</a> &gt; <a href="index.source.html" class="el_package">tw.funymph.commons.sort</a> &gt; <span class="el_source">SortDescriptors.java</span></div><h1>SortDescriptors.java</h1><pre class="source lang-java linenums">/* SortDescriptors.java created on Feb 1, 2015
+ *
+ * Copyright (c) &lt;2015&gt; Pin-Ying Tu &lt;dbi1463@gmail.com&gt;
+ * 
+ * This file is part of SortDescriptor under the MIT license.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package tw.funymph.commons.sort;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * This class provides a set of methods to organize sort descriptors together
+ * to sort elements.
+ * 
+ * @author Pin-Ying Tu
+ * @version 1.0
+ * @since 1.0
+ * @param &lt;InputType&gt; the type of the elements to be sorted
+ */
+public class SortDescriptors&lt;InputType&gt; {
+
+	private List&lt;SortDescriptor&lt;InputType&gt;&gt; _descriptors;
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap the given
+	 * sort descriptor as the first descriptor.
+	 * 
+	 * @param descriptor the first sort descriptor
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType&gt; SortDescriptors&lt;InputType&gt; startWith(SortDescriptor&lt;InputType&gt; descriptor) {
+<span class="fc" id="L53">		SortDescriptors&lt;InputType&gt; builder = new SortDescriptors&lt;InputType&gt;();</span>
+<span class="fc" id="L54">		builder.thenWith(descriptor);</span>
+<span class="fc" id="L55">		return builder;</span>
+	}
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap the given
+	 * transformer as the first sort descriptor to sort elements &lt;em&gt;ascending&lt;/em&gt;.
+	 * 
+	 * @param transformer the transformer to be the first sort descriptor
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @param &lt;T&gt; the type of the input's property to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType, T extends Comparable&lt;T&gt;&gt; SortDescriptors&lt;InputType&gt; startWith(Transformer&lt;InputType, T&gt; transformer) {
+<span class="fc" id="L68">		return startWith(transformer, true);</span>
+	}
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap the given
+	 * transformer as the first sort descriptor.
+	 * 
+	 * @param transformer the transformer to be the first sort descriptor
+	 * @param ascending to sort elements ascending or descending
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @param &lt;T&gt; the type of the input's property to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType, T extends Comparable&lt;T&gt;&gt; SortDescriptors&lt;InputType&gt; startWith(Transformer&lt;InputType, T&gt; transformer, boolean ascending) {
+<span class="fc" id="L82">		SortDescriptors&lt;InputType&gt; builder = new SortDescriptors&lt;InputType&gt;();</span>
+<span class="fc" id="L83">		builder.thenWith(transformer, ascending);</span>
+<span class="fc" id="L84">		return builder;</span>
+	}
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap a sort descriptor
+	 * to sort elements &lt;em&gt;ascending&lt;/em&gt; based on the property name as the first sort
+	 * descriptor.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType&gt; SortDescriptors&lt;InputType&gt; startWith(String propertyName) {
+<span class="fc" id="L97">		return startWith(propertyName, true);</span>
+	}
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap a sort descriptor
+	 * to sort elements based on the property name as the first sort descriptor.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param ascending to sort elements ascending or descending
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType&gt; SortDescriptors&lt;InputType&gt; startWith(String propertyName, boolean ascending) {
+<span class="fc" id="L110">		return startWith(propertyName, false, ascending);</span>
+	}
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap a sort descriptor
+	 * to sort elements based on the property name as the first sort descriptor. The name
+	 * of the getter method can be customized by the {@code methodPrefix}.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param methodPrefix the customized getter method prefix
+	 * @param ascending to sort elements ascending or descending
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType&gt; SortDescriptors&lt;InputType&gt; startWith(String propertyName, String methodPrefix, boolean ascending) {
+<span class="fc" id="L125">		SortDescriptors&lt;InputType&gt; builder = new SortDescriptors&lt;InputType&gt;();</span>
+<span class="fc" id="L126">		builder.thenWith(propertyName, methodPrefix, ascending);</span>
+<span class="fc" id="L127">		return builder;</span>
+	}
+
+	/**
+	 * Create a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance and wrap a sort descriptor
+	 * to sort elements based on the property name as the first sort descriptor. If the
+	 * {@code isBooleanProperty} is {@code true}, the getter prefix will use &lt;code&gt;is&lt;/code&gt;
+	 * instead of &lt;code&gt;get&lt;/code&gt;.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param isBooleanProperty to indicate whether the property is boolean property
+	 * @param ascending to sort elements ascending or descending
+	 * @param &lt;InputType&gt; the type of the elements to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public static &lt;InputType&gt; SortDescriptors&lt;InputType&gt; startWith(String propertyName, boolean isBooleanProperty, boolean ascending) {
+<span class="fc" id="L143">		SortDescriptors&lt;InputType&gt; builder = new SortDescriptors&lt;InputType&gt;();</span>
+<span class="fc" id="L144">		builder.thenWith(propertyName, isBooleanProperty, ascending);</span>
+<span class="fc" id="L145">		return builder;</span>
+	}
+
+	/**
+	 * Construct a &lt;code&gt;SortDescriptorsBuilder&lt;/code&gt; instance.
+	 */
+<span class="fc" id="L151">	private SortDescriptors() {</span>
+<span class="fc" id="L152">		_descriptors = new ArrayList&lt;SortDescriptor&lt;InputType&gt;&gt;();</span>
+<span class="fc" id="L153">	}</span>
+
+	/**
+	 * Add the given sort descriptor.
+	 * 
+	 * @param descriptor the sort descriptor
+	 * @return the builder to organize other sort descriptors
+	 */
+	public SortDescriptors&lt;InputType&gt; thenWith(SortDescriptor&lt;InputType&gt; descriptor) {
+<span class="fc" id="L162">		_descriptors.add(descriptor);</span>
+<span class="fc" id="L163">		return this;</span>
+	}
+
+	/**
+	 * Wrap the given transformer as a sort descriptor to sort elements &lt;em&gt;ascending&lt;/em&gt;.
+	 * 
+	 * @param transformer the transformer to be the sort descriptor
+	 * @param &lt;T&gt; the type of the input's property to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public &lt;T extends Comparable&lt;T&gt;&gt; SortDescriptors&lt;InputType&gt; thenWith(Transformer&lt;InputType, T&gt; transformer) {
+<span class="fc" id="L174">		return thenWith(transformer, true);</span>
+	}
+
+	/**
+	 * Wrap the given transformer as a first sort descriptor.
+	 * 
+	 * @param transformer the transformer to be the sort descriptor
+	 * @param ascending to sort elements ascending or descending
+	 * @param &lt;T&gt; the type of the input's property to be sorted
+	 * @return the builder to organize other sort descriptors
+	 */
+	public &lt;T extends Comparable&lt;T&gt;&gt; SortDescriptors&lt;InputType&gt; thenWith(Transformer&lt;InputType, T&gt; transformer, boolean ascending) {
+<span class="fc" id="L186">		_descriptors.add(new SimpleSortDescriptor&lt;InputType, T&gt;(transformer, ascending));</span>
+<span class="fc" id="L187">		return this;</span>
+	}
+
+	/**
+	 * Wrap a sort descriptor to sort elements &lt;em&gt;ascending&lt;/em&gt; based on the property name.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @return the builder to organize other sort descriptors
+	 */
+	public SortDescriptors&lt;InputType&gt; thenWith(String propertyName) {
+<span class="fc" id="L197">		return thenWith(propertyName, false, true);</span>
+	}
+
+	/**
+	 * Wrap a sort descriptor to sort elements based on the property name.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param ascending to sort elements ascending or descending
+	 * @return the builder to organize other sort descriptors
+	 */
+	public SortDescriptors&lt;InputType&gt; thenWith(String propertyName, boolean ascending) {
+<span class="fc" id="L208">		return thenWith(propertyName, false, ascending);</span>
+	}
+
+	/**
+	 * Wrap a sort descriptor to sort elements based on the property name. If the
+	 * {@code isBooleanProperty} is {@code true}, the getter prefix will use &lt;code&gt;is&lt;/code&gt;
+	 * instead of &lt;code&gt;get&lt;/code&gt;.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param isBooleanProperty to indicate whether the property is boolean property
+	 * @param ascending to sort elements ascending or descending
+	 * @return the builder to organize other sort descriptors
+	 */
+	public SortDescriptors&lt;InputType&gt; thenWith(String propertyName, boolean isBooleanProperty, boolean ascending) {
+<span class="fc" id="L222">		PropertySortDescriptor&lt;InputType&gt; descriptor = new PropertySortDescriptor&lt;InputType&gt;(propertyName, isBooleanProperty, ascending);</span>
+<span class="fc" id="L223">		_descriptors.add(descriptor);</span>
+<span class="fc" id="L224">		return this;</span>
+	}
+
+	/**
+	 * Wrap a sort descriptor to sort elements based on the property name as. The name of
+	 * the getter method can be customized by the {@code methodPrefix}.
+	 * 
+	 * @param propertyName the property name to sort
+	 * @param methodPrefix the customized getter method prefix
+	 * @param ascending to sort elements ascending or descending
+	 * @return the builder to organize other sort descriptors
+	 */
+	public SortDescriptors&lt;InputType&gt; thenWith(String propertyName, String methodPrefix, boolean ascending) {
+<span class="fc" id="L237">		PropertySortDescriptor&lt;InputType&gt; descriptor = new PropertySortDescriptor&lt;InputType&gt;(propertyName);</span>
+<span class="fc" id="L238">		descriptor.setAscending(ascending);</span>
+<span class="fc" id="L239">		descriptor.setGetterMethodPrefix(methodPrefix);</span>
+<span class="fc" id="L240">		_descriptors.add(descriptor);</span>
+<span class="fc" id="L241">		return this;</span>
+	}
+
+	/**
+	 * Return a sorted elements from the given elements (remain unchanged) with the
+	 * sort descriptors.
+	 * 
+	 * @param items the items to sort
+	 * @return the sorted items
+	 */
+	public List&lt;InputType&gt; sortedList(Collection&lt;InputType&gt; items) {
+<span class="fc" id="L252">		return SortUtils.sortedList(items, _descriptors);</span>
+	}
+
+	/**
+	 * Sorted the given elements with the sort descriptors.
+	 * 
+	 * @param items the items to sort
+	 */
+	public void sort(List&lt;InputType&gt; items) {
+<span class="fc" id="L261">		SortUtils.sort(items, _descriptors);</span>
+<span class="fc" id="L262">	}</span>
+
+	/**
+	 * 
+	 * @return
+	 */
+	List&lt;SortDescriptor&lt;InputType&gt;&gt; getDescriptors() {
+<span class="fc" id="L269">		return _descriptors;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
