@@ -3,6 +3,7 @@ SortDescriptor
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![CI Status](https://travis-ci.org/dbi1463/SortDescriptor.svg?branch=master)](https://travis-ci.org/dbi1463/SortDescriptor)
 [![Code coverage by codecov.io](https://codecov.io/github/dbi1463/SortDescriptor/coverage.svg?branch=master)](https://codecov.io/github/dbi1463/SortDescriptor?branch=master)
+[ ![Download](https://api.bintray.com/packages/dbi1463/maven/SortDescriptor/images/download.svg) ](https://bintray.com/dbi1463/maven/SortDescriptor/_latestVersion)
 
 A NSSortDescriptor-like implementation on Java.
 

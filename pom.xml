@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>tw.funnymph</groupId>
 	<artifactId>sort-descriptor</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>SortDescriptor</name>
 	<description>A NSSortDescriptor similar porting in Java language</description>
 	<url>https://github.com/dbi1463/SortDescriptor</url>
@@ -12,6 +12,14 @@
 			<id>apache.org</id>
 			<name>Apache Maven Snapshot Repository</name>
 			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-dbi1463-maven</id>
+			<name>bintray</name>
+			<url>http://dl.bintray.com/dbi1463/maven</url>
 		</repository>
 	</repositories>
 	<properties>
@@ -157,11 +165,11 @@
 		<url>https://github.com/dbi1463/SortDescriptor/issues</url>
 	</issueManagement>
 	<distributionManagement>
-    	<repository>
-        	<id>bintray-dbi1463-maven</id>
-        	<name>dbi1463-maven</name>
-        	<url>https://api.bintray.com/maven/dbi1463/maven/SortDescriptor/;publish=1</url>
-    	</repository>
+		<repository>
+			<id>bintray-dbi1463-maven</id>
+			<name>dbi1463-maven</name>
+			<url>https://api.bintray.com/maven/dbi1463/maven/SortDescriptor/;publish=1</url>
+		</repository>
 	</distributionManagement>
 	<developers>
 		<developer>
