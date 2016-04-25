@@ -8,7 +8,7 @@ before_install:
   - pip install --user codecov
 
 script:
-  - mvn package site
+  - mvn -s settings.xml package site
 
 after_success:
   - codecov
