@@ -3,7 +3,6 @@ SortDescriptor
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![CI Status](https://travis-ci.org/dbi1463/SortDescriptor.svg?branch=master)](https://travis-ci.org/dbi1463/SortDescriptor)
 [![Code coverage by codecov.io](https://codecov.io/github/dbi1463/SortDescriptor/coverage.svg?branch=master)](https://codecov.io/github/dbi1463/SortDescriptor?branch=master)
-[ ![Download](https://api.bintray.com/packages/dbi1463/maven/SortDescriptor/images/download.svg) ](https://bintray.com/dbi1463/maven/SortDescriptor/_latestVersion)
 
 A NSSortDescriptor-like implementation on Java.
 
@@ -12,6 +11,23 @@ A NSSortDescriptor-like implementation on Java.
 * Sort objects with object's persistent properties without writing comparator
 * Sort objects with object's transient properties by writing transformers
 * Object's persistent properties and transient properties can be used together as the sort conditions
+
+## Donwload
+
+Download the latest JAR [![Download](https://api.bintray.com/packages/dbi1463/maven/SortDescriptor/images/download.svg)](https://bintray.com/dbi1463/maven/SortDescriptor/_latestVersion) or grab via Maven:
+
+```xml
+<dependency>
+  <groupId>tw.funymph</groupId>
+  <artifactId>sort-descriptor</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+or Gradle:
+
+```gradle
+compile 'tw.funymph:sort-descriptor:1.0.0'
+```
 
 ## How to use
 The `SortDescriptors` can be use to organize the sort conditions. Given a person object that has first name, last name, full name, age, and gender properties (see the Person.java in test code). For example, if we would like to sort persons first by whether the person is adult or not, than by the gender, and last by his/her first name. There is no need to write complicated comparator. With `SortDescriptors`, the following code combines three sort descriptors together. The first sort descriptor wraps a transformer (`AdultChecker`) to sort transient property from a person object. The third statement adds a property sort descriptor by just simply declares the property name in the first parameter. The second parameter is used to control the ordering: `true` for ascending or `false` for descending (default is `true` if the parameter is not provided).
