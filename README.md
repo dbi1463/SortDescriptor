@@ -3,7 +3,7 @@ SortDescriptor
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![CI Status](https://travis-ci.org/dbi1463/SortDescriptor.svg?branch=master)](https://travis-ci.org/dbi1463/SortDescriptor)
 [![Code coverage by codecov.io](https://codecov.io/github/dbi1463/SortDescriptor/coverage.svg?branch=master)](https://codecov.io/github/dbi1463/SortDescriptor?branch=master)
-[![Download](https://api.bintray.com/packages/dbi1463/maven/SortDescriptor/images/download.svg)](https://bintray.com/dbi1463/maven/SortDescriptor/_latestVersion)
+[![Download](https://api.bintray.com/packages/dbi1463/maven/tw.funymph.sort-descriptor/images/download.svg)](https://bintray.com/dbi1463/maven/tw.funymph.sort-descriptor/_latestVersion)
 
 A NSSortDescriptor-like implementation on Java.
 
@@ -15,7 +15,7 @@ A NSSortDescriptor-like implementation on Java.
 
 ## Donwload
 
-Download [the latest JAR](https://github.com/dbi1463/SortDescriptor/releases/tag/1.0.0) or grab via Maven (will be available on JCenter soon):
+Download [the latest JAR](https://github.com/dbi1463/SortDescriptor/releases/latest) or grab via Maven (will be available on JCenter soon):
 
 ```xml
 <dependency>
