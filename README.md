@@ -118,7 +118,7 @@ assertEquals("Mike Cheng", result.get(6).getFullName());
 ```
 
 ## Maven Site
-Maven site on [GitHub Pages](http://dbi1463.github.io/SortDescriptor/)
+Maven site on [GitHub Pages](http://dbi1463.github.io/SortDescriptor/maven)
 
 ## License
 The MIT License (MIT)
