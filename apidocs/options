@@ -1,0 +1,22 @@
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/spirit/git/SortDescriptor/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2016. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/spirit/git/SortDescriptor/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'SortDescriptor 1.0.0 API'
+-linkoffline
+'http://docs.oracle.com/javase/6/docs/api' '/Users/spirit/git/SortDescriptor/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'SortDescriptor 1.0.0 API'
