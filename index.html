@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Sortdescriptor by dbi1463</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Sortdescriptor</h1>
+      <h2 class="project-tagline">A NSSortDescriptor similar porting in Java language.</h2>
+      <a href="https://github.com/dbi1463/SortDescriptor" class="btn">View on GitHub</a>
+      <a href="https://github.com/dbi1463/SortDescriptor/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/dbi1463/SortDescriptor/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="sortdescriptor" class="anchor" href="#sortdescriptor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SortDescriptor</h1>
+
+<p><a href="http://opensource.org/licenses/MIT"><img src="http://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+<a href="https://travis-ci.org/dbi1463/SortDescriptor"><img src="https://travis-ci.org/dbi1463/SortDescriptor.svg?branch=master" alt="CI Status"></a>
+<a href="https://codecov.io/github/dbi1463/SortDescriptor?branch=master"><img src="https://codecov.io/github/dbi1463/SortDescriptor/coverage.svg?branch=master" alt="Code coverage by codecov.io"></a>
+<a href="https://bintray.com/dbi1463/maven/tw.funymph.sort-descriptor/_latestVersion"><img src="https://api.bintray.com/packages/dbi1463/maven/tw.funymph.sort-descriptor/images/download.svg" alt="Download"></a></p>
+
+<p>A NSSortDescriptor-like implementation on Java.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Sort objects with multiple conditions</li>
+<li>Sort objects with object's persistent properties without writing comparator</li>
+<li>Sort objects with object's transient properties by writing transformers</li>
+<li>Object's persistent properties and transient properties can be used together as the sort conditions</li>
+</ul>
+
+<h2>
+<a id="donwload" class="anchor" href="#donwload" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Donwload</h2>
+
+<p>Download <a href="https://github.com/dbi1463/SortDescriptor/releases/latest">the latest JAR</a> or grab via Maven (will be available on JCenter soon):</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+  &lt;<span class="pl-ent">groupId</span>&gt;tw.funymph&lt;/<span class="pl-ent">groupId</span>&gt;
+  &lt;<span class="pl-ent">artifactId</span>&gt;sort-descriptor&lt;/<span class="pl-ent">artifactId</span>&gt;
+  &lt;<span class="pl-ent">version</span>&gt;1.0.0&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+
+<p>or Gradle (will be available on JCenter soon):</p>
+
+<div class="highlight highlight-source-groovy-gradle"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>tw.funymph:sort-descriptor:1.0.0<span class="pl-pds">'</span></span></pre></div>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>The <code>SortDescriptors</code> can be use to organize the sort conditions. Given a person object that has first name, last name, full name, age, and gender properties (see the Person.java in test code). For example, if we would like to sort persons first by whether the person is adult or not, than by the gender, and last by his/her first name. There is no need to write complicated comparator. With <code>SortDescriptors</code>, the following code combines three sort descriptors together. The first sort descriptor wraps a transformer (<code>AdultChecker</code>) to sort transient property from a person object. The third statement adds a property sort descriptor by just simply declares the property name in the first parameter. The second parameter is used to control the ordering: <code>true</code> for ascending or <code>false</code> for descending (default is <code>true</code> if the parameter is not provided).</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">// Sort the persons by whether the person is adult or not, the gender, and the first name</span>
+<span class="pl-k">List&lt;<span class="pl-smi">Person</span>&gt;</span> result <span class="pl-k">=</span> <span class="pl-smi">SortDescriptors</span>
+    .startWith(<span class="pl-k">new</span> <span class="pl-smi">AdultChecker</span>(), <span class="pl-c1">true</span>)
+    .thenWith(<span class="pl-s"><span class="pl-pds">"</span>gender<span class="pl-pds">"</span></span>, <span class="pl-c1">false</span>)
+    .thenWith(<span class="pl-s"><span class="pl-pds">"</span>firstName<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>)
+    .sortedList(persons);</pre></div>
+
+<p>The <code>AdultChecker</code> is a very simple class that implements <code>Transformer</code> to return <code>true</code> for a person whose age is larger than <code>18</code>; otherwise return <code>false</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AdultChecker</span> <span class="pl-k">implements</span> <span class="pl-e">Transformer&lt;<span class="pl-smi">Person</span>, <span class="pl-smi">Boolean</span>&gt;</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-k">int</span> <span class="pl-c1">DEFAULT_ADULT_AGE</span> <span class="pl-k">=</span> <span class="pl-c1">18</span>;
+
+    <span class="pl-k">private</span> <span class="pl-k">int</span> _adultAge;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Construct &lt;code&gt;AdultTransformer&lt;/code&gt; instance.</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-en">AdultChecker</span>() {
+        <span class="pl-v">this</span>(<span class="pl-c1">DEFAULT_ADULT_AGE</span>);
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Construct &lt;code&gt;AdultTransformer&lt;/code&gt; instance with the minimum</span>
+<span class="pl-c">     * age to become an adult.</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-en">AdultChecker</span>(<span class="pl-k">int</span> <span class="pl-v">age</span>) {
+        _adultAge <span class="pl-k">=</span> age;
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Boolean</span> <span class="pl-en">transform</span>(<span class="pl-smi">Person</span> <span class="pl-v">input</span>) {
+        <span class="pl-k">return</span> <span class="pl-smi">Boolean</span><span class="pl-k">.</span>valueOf(input<span class="pl-k">.</span>getAge() <span class="pl-k">&gt;=</span> _adultAge);
+    }
+}</pre></div>
+
+<p>Of course, with Java 8, the <code>AdultChecker</code> can be replaced with single-staement lamda expression like this.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">List&lt;<span class="pl-smi">Person</span>&gt;</span> result <span class="pl-k">=</span> <span class="pl-smi">SortDescriptors</span>
+    .startWith((<span class="pl-smi">Person</span> p) <span class="pl-k">-</span><span class="pl-k">&gt;</span> { <span class="pl-k">return</span> p<span class="pl-k">.</span>getAge() <span class="pl-k">&gt;=</span> <span class="pl-c1">18</span>; }, <span class="pl-c1">true</span>)
+    .thenWith(<span class="pl-s"><span class="pl-pds">"</span>gender<span class="pl-pds">"</span></span>, <span class="pl-c1">false</span>)
+    .thenWith(<span class="pl-s"><span class="pl-pds">"</span>firstName<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>)
+    .sortedList(persons);</pre></div>
+
+<p>Here is the complete example, that uses <code>SortDescriptors</code> to ogranize three sort descriptors and then sorts 7 objects in expected order.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">// Given a lot of persons</span>
+<span class="pl-k">List&lt;<span class="pl-smi">Person</span>&gt;</span> persons <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">Person</span>&gt;</span>();
+<span class="pl-c">// getBirthday(age, month, day)</span>
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Joe<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Lai<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Male</span>, getBirthday(<span class="pl-c1">13</span>, <span class="pl-c1">1</span>, <span class="pl-c1">3</span>)));
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Jessica<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Lee<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Female</span>, getBirthday(<span class="pl-c1">13</span>, <span class="pl-c1">11</span>, <span class="pl-c1">23</span>)));
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Mike<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cheng<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Male</span>, getBirthday(<span class="pl-c1">18</span>, <span class="pl-c1">9</span>, <span class="pl-c1">3</span>)));
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Richard<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Wang<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Male</span>, getBirthday(<span class="pl-c1">16</span>, <span class="pl-c1">7</span>, <span class="pl-c1">13</span>)));
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Cathy<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Feng<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Female</span>, getBirthday(<span class="pl-c1">21</span>, <span class="pl-c1">5</span>, <span class="pl-c1">9</span>)));
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Bill<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Lin<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Male</span>, getBirthday(<span class="pl-c1">26</span>, <span class="pl-c1">3</span>, <span class="pl-c1">22</span>)));
+persons<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">Person</span>(<span class="pl-s"><span class="pl-pds">"</span>Zoe<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Kuan<span class="pl-pds">"</span></span>, <span class="pl-smi">Gender</span><span class="pl-k">.</span><span class="pl-smi">Female</span>, getBirthday(<span class="pl-c1">34</span>, <span class="pl-c1">4</span>, <span class="pl-c1">30</span>)));
+
+<span class="pl-c">// Sort the persons by whether the person is adult or not, the gender, and the first name</span>
+<span class="pl-k">List&lt;<span class="pl-smi">Person</span>&gt;</span> result <span class="pl-k">=</span> <span class="pl-smi">SortDescriptors</span>
+    .startWith(<span class="pl-k">new</span> <span class="pl-smi">AdultChecker</span>(), <span class="pl-c1">true</span>)
+    .thenWith(<span class="pl-s"><span class="pl-pds">"</span>gender<span class="pl-pds">"</span></span>, <span class="pl-c1">false</span>)
+    .thenWith(<span class="pl-s"><span class="pl-pds">"</span>firstName<span class="pl-pds">"</span></span>)
+    .sortedList(persons);
+
+<span class="pl-c">// Assert the ordering</span>
+<span class="pl-c">// The following are not adult, female first and then male</span>
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Jessica Lee<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">0</span>)<span class="pl-k">.</span>getFullName());
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Joe Lai<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">1</span>)<span class="pl-k">.</span>getFullName());
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Richard Wang<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">2</span>)<span class="pl-k">.</span>getFullName());
+
+<span class="pl-c">// The following are adult, female first and then male</span>
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Cathy Feng<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">3</span>)<span class="pl-k">.</span>getFullName());
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Zoe Kuan<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">4</span>)<span class="pl-k">.</span>getFullName());
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Bill Lin<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">5</span>)<span class="pl-k">.</span>getFullName());
+assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Mike Cheng<span class="pl-pds">"</span></span>, result<span class="pl-k">.</span>get(<span class="pl-c1">6</span>)<span class="pl-k">.</span>getFullName());</pre></div>
+
+<h2>
+<a id="maven-site" class="anchor" href="#maven-site" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Maven Site</h2>
+
+<p>Maven site on <a href="http://dbi1463.github.io/SortDescriptor/maven/">GitHub Pages</a></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2015 Pin-Ying Tu <a href="mailto:dbi1463@gmail.com">dbi1463@gmail.com</a></p>
+
+<p>This file is part of SortDescriptor under the MIT license.</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/dbi1463/SortDescriptor">Sortdescriptor</a> is maintained by <a href="https://github.com/dbi1463">dbi1463</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
