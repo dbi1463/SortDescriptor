@@ -15,16 +15,16 @@ A NSSortDescriptor-like implementation on Java.
 
 ## Donwload
 
-Download [the latest JAR](https://github.com/dbi1463/SortDescriptor/releases/latest) or grab via Maven (will be available on JCenter soon):
+Download [the latest JAR](https://github.com/dbi1463/SortDescriptor/releases/latest) or grab via Maven (available on JCenter):
 
 ```xml
 <dependency>
-  <groupId>tw.funymph</groupId>
-  <artifactId>sort-descriptor</artifactId>
-  <version>1.0.0</version>
+    <groupId>tw.funymph</groupId>
+    <artifactId>sort-descriptor</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
-or Gradle (will be available on JCenter soon):
+or Gradle (available on JCenter):
 
 ```gradle
 compile 'tw.funymph:sort-descriptor:1.0.0'
