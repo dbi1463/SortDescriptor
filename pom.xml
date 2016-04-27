@@ -206,7 +206,7 @@
 		<repository>
 			<id>bintray-dbi1463-maven</id>
 			<name>dbi1463-maven</name>
-			<url>https://api.bintray.com/maven/dbi1463/maven/SortDescriptor/;publish=1</url>
+			<url>https://api.bintray.com/maven/dbi1463/maven/tw.funymph.sort-descriptor/;publish=1</url>
 		</repository>
 	</distributionManagement>
 	<developers>
